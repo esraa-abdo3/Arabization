@@ -14,6 +14,7 @@ function App() {
   const [errorCheck, setErrorCheck] = useState('');
   const [errorValidate, setErrorValidate] = useState('');
   const [errorAdd, setErrorAdd] = useState('');
+  console.log(word)
 
   useEffect(() => {
     if (text.trim().length > 0) {
@@ -58,7 +59,7 @@ function App() {
 }
   const handleSpellvalidat = async () => {
         setErrorMessage("");
-      if (text.trim().length === 0) {
+      if (word.trim().length === 0) {
         setErrorValidate("يرجى إدخال الكلمة");
         
     return;
@@ -67,7 +68,7 @@ function App() {
   try {
     const response = await axios.post(
       'https://arabic-spellchecker.vercel.app/spellcheck/validate',
-      { word }, 
+        { word: word.trim() }, 
       {
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ function App() {
   }
   const handleSpelladd = async () => {
         setErrorMessage("");
-           if (text.trim().length === 0) {
+           if (addword.trim().length === 0) {
     setErrorAdd("يرجى إدخال الكلمة");
     return;
   }
