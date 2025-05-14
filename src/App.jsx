@@ -103,7 +103,14 @@ function App() {
     console.log(response.data)
     setResultadd(response.data)
   } catch (error) {
-    setErrorMessage("حدث خطأ، يرجى المحاولة مرة أخرى");
+    if (error.status === 409) {
+          setErrorMessage("الكلمة مضافة مسبقًا يرجى اختيار كلمة أخرى");
+      
+    }
+    else {
+          setErrorMessage("حدث خطأ، يرجى المحاولة مرة أخرى");
+    }
+
     console.error('Error:', error)
    
   }
@@ -258,7 +265,7 @@ function App() {
    <span style={{color :resultword.isCorrect ?"green" :"red"}}>{resultword.word}</span> 
   </p>
   <p dir="rtl">
-    الحالة:{" "}
+    الحالة  :{" "}
     {resultword.isCorrect ? (
       <span style={{ color: "green" }}>صحيحة ✔️</span>
     ) : (
@@ -269,7 +276,7 @@ function App() {
   {!resultword.isCorrect && resultword.suggestions.length > 0 && (
     <div className="suggestions-section" dir="rtl">
     <span style={{fontWeight:"bold" , padding :"0 "}}> اقتراحات :</span>
-      <span>
+      <span style={{paddingRight:"5px"}}>
                       [ {resultword.suggestions.join(', ')} ]
                       </span>
     
@@ -318,9 +325,9 @@ function App() {
    <span >{resultadd.word}</span> 
   </p>
   <p dir="rtl">
-    الحالة:{" "}
+     الحالة  : {" "}
                   {resultadd.message && (
-                    <span style={{ color: "green" }}> {resultadd.message} </span>
+                    <span style={{ color: "green"  , paddingRight:"5px"}}> {resultadd.message} </span>
                   )
                   }
   </p>
